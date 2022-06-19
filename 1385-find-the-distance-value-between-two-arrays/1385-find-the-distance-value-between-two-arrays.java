@@ -13,7 +13,7 @@ class Solution {
             int r = arr2.length-1;
             while(l<=r){
                 int m = l +(r-l)/2;
-                if((val-d)<=arr2[m] && (val+d)>=arr2[m]){
+                if(Math.abs(val-arr2[m])<=d){
                     dist--;
                     break;
                 }else if(arr2[m]<(val-d)){
