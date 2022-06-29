@@ -8,8 +8,7 @@ class Solution {
             numSet.add(nums[i]);
         }
         
-        Queue<Integer> countQ = new PriorityQueue<>((a,b)-> b-a);
-        countQ.add(1);
+        int longest = 1;
         for(Integer n: numSet){
             int count=1;
             if(!numSet.contains(n-1)){
@@ -18,10 +17,10 @@ class Solution {
                     count++;
                     seqElement++;
                 }
-                countQ.add(count);
+                longest = Math.max(count,longest);
             }
         }
-        System.out.println(countQ);
-        return countQ.peek();
+        
+        return longest;
     }
 }
