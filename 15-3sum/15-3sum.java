@@ -1,7 +1,7 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         
-        Set<List<Integer>> res = new HashSet<List<Integer>>();
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
         
         Arrays.sort(nums);
         
@@ -30,7 +30,7 @@ class Solution {
                     }
             }
         }
-      List<List<Integer>> result = res.stream().collect(Collectors.toList());
-      return result;  
+      // List<List<Integer>> result = res.stream().collect(Collectors.toList());
+      return res;  
     }
 }
