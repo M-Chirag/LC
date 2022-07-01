@@ -13,13 +13,11 @@ class Solution {
             if(i!=0 && nums[i]==nums[i-1])
                 continue;
             
-            int sum = 0-nums[i];
-            
             while(l<r){
-                
-                if(nums[l]+nums[r]>sum){
+                int threeSum = nums[i]+nums[l]+nums[r];
+                if(0<threeSum){
                     r--;
-                }else if(nums[l]+nums[r]<sum){
+                }else if(0>threeSum){
                     l++;
                 }else{
                     List<Integer> candidate = new ArrayList<>();
@@ -27,7 +25,8 @@ class Solution {
                     System.out.println(candidate);
                     res.add(candidate);
                     l++;
-                    r--;
+                    while(nums[l]==nums[l-1] && l<r)
+                        l++;
                     }
             }
         }
