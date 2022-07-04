@@ -8,10 +8,7 @@ class Solution {
             maxProf = Math.max(maxProf, prices[r]-prices[l]);
             if(prices[l]>prices[r]){
                 l=r;
-                r++;
-            }else{
-                r++;
-            }
+            } r++;
             // System.out.println(maxProf+"...." + r);
         }
      return maxProf;   
