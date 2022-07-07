@@ -7,23 +7,15 @@ class Solution {
         int max = 1;
         
         while(j<s.length()){
-            
-            // hm.merge(s.charAt(i),1, Integer::sum);
-            boolean isAdded = set.add(s.charAt(j));
-            
-            if(isAdded){
-                j++;
-            }
-            if(!isAdded){
-                System.out.println(set+".....");
-                while(set.contains(s.charAt(j))){
-                    set.remove(s.charAt(i));
-                    i++;
-                }
+            if(!set.contains(s.charAt(j))){
                 set.add(s.charAt(j));
                 j++;
             }
-            max = Math.max(max, set.size());
+            else{
+                set.remove(s.charAt(i));
+                i++;
+            }
+            max = Math.max(max, j-i);
         }
         return max;
     }
