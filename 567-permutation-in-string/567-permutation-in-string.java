@@ -1,28 +1,31 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        int len1 = s1.length(), len2 = s2.length();
-        if (len1 > len2) return false;
-        
-        int[] count = new int[26];
-        for (int i = 0; i < len1; i++) {
-            count[s1.charAt(i) - 'a']++;
-            count[s2.charAt(i) - 'a']--;
+        int[] arr1 = new int[26];
+        for(int i=0; i<s1.length(); i++){
+            arr1[s1.charAt(i)-'a']++;
         }
-        if (allZero(count)) return true;
-        
-        for (int i = len1; i < len2; i++) {
-            count[s2.charAt(i) - 'a']--;
-            count[s2.charAt(i - len1) - 'a']++;
-            if (allZero(count)) return true;
+        int i=0, j=0;
+        int[] arr2 = new int[26];
+        while(j<s2.length()){
+            arr2[s2.charAt(j)-'a']++;
+            int size = j-i+1;
+            
+            if(size==s1.length() && j<s2.length()){
+                System.out.println(s2.charAt(i)+" "+s2.charAt(j)+"...."+arr2[s2.charAt(j)-'a']);
+                if(Arrays.equals(arr1,arr2))
+                    return true;
+                arr2[s2.charAt(i)-'a']--;
+                i++;
+            }
+            
+            j++;
         }
         
+        for(int e: arr1)
+            System.out.print(e+" ");
+        System.out.println();
+        for(int f: arr2)
+            System.out.print(f+" ");
         return false;
-    }
-    
-    private boolean allZero(int[] count) {
-        for (int i = 0; i < 26; i++) {
-            if (count[i] != 0) return false;
-        }
-        return true;
     }
 }
