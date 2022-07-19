@@ -1,31 +1,43 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
+        int matches = 0;
         int[] arr1 = new int[26];
+        int[] arr2 = new int[26];
+        
+        if(s1.length()>s2.length()) return false;
+        
         for(int i=0; i<s1.length(); i++){
             arr1[s1.charAt(i)-'a']++;
-        }
-        int i=0, j=0;
-        int[] arr2 = new int[26];
-        while(j<s2.length()){
-            arr2[s2.charAt(j)-'a']++;
-            int size = j-i+1;
-            
-            if(size==s1.length() && j<s2.length()){
-                System.out.println(s2.charAt(i)+" "+s2.charAt(j)+"...."+arr2[s2.charAt(j)-'a']);
-                if(Arrays.equals(arr1,arr2))
-                    return true;
-                arr2[s2.charAt(i)-'a']--;
-                i++;
-            }
-            
-            j++;
+            arr2[s2.charAt(i)-'a']++;
         }
         
-        for(int e: arr1)
-            System.out.print(e+" ");
-        System.out.println();
-        for(int f: arr2)
-            System.out.print(f+" ");
-        return false;
+        for(int j=0; j<26;j++){
+            if(arr1[j]==arr2[j])
+                matches++;
+        }
+        
+        int l = 0, r=s1.length();
+        while(r<s2.length()){
+            
+            if(matches==26) return true;
+            
+            
+            int index = s2.charAt(r)-'a';
+            arr2[index]++;
+            if(arr2[index]==arr1[index])
+                matches++;
+            else if (arr2[index]==arr1[index]+1)
+                matches--;
+            
+            index = s2.charAt(l)-'a';
+            arr2[index]--;
+            if(arr1[index]==arr2[index])
+                matches++;
+            else if(arr2[index]==arr1[index]-1)
+                matches--;
+            r++;
+            l++;
+        }
+        return matches==26? true: false;
     }
 }
