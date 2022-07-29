@@ -1,46 +1,46 @@
-public class Solution {
-public String minWindow(String s, String t) {
-    if(s == null || s.length() < t.length() || s.length() == 0){
-        return "";
-    }
-    HashMap<Character,Integer> map = new HashMap<Character,Integer>();
-    for(char c : t.toCharArray()){
-        if(map.containsKey(c)){
-            map.put(c,map.get(c)+1);
-        }else{
-            map.put(c,1);
+class Solution {
+    public String minWindow(String s, String t) {
+        
+        Map<Character, Integer> tCount = new HashMap<>();
+        
+        if(t.length()>s.length()) return "";
+        
+        for(char c : t.toCharArray()){
+            tCount.merge(c, 1, Integer::sum);
         }
-    }
-    int left = 0;
-    int minLeft = 0;
-    int minLen = s.length()+1;
-    int count = 0;
-    for(int right = 0; right < s.length(); right++){
-        if(map.containsKey(s.charAt(right))){
-            map.put(s.charAt(right),map.get(s.charAt(right))-1);
-            if(map.get(s.charAt(right)) >= 0){
-                count ++;
+        
+        int l=0, r=0, maxLeft =0, minLength=s.length()+1, counter = tCount.size();
+        
+        while(r<s.length()){
+            
+            char rchar = s.charAt(r);
+            if(tCount.containsKey(rchar)){
+                tCount.put(rchar,tCount.get(rchar)-1);
+                if(tCount.get(rchar)==0){
+                    counter--;
+                }   
             }
-            while(count == t.length()){
-                if(right-left+1 < minLen){
-                    minLeft = left;
-                    minLen = right-left+1;
-                }
-                if(map.containsKey(s.charAt(left))){
-                    map.put(s.charAt(left),map.get(s.charAt(left))+1);
-                    if(map.get(s.charAt(left)) > 0){
-                        count --;
+            
+            if(counter==0){
+                while(counter==0 && l<=r){
+                    char lchar = s.charAt(l);
+                    if(tCount.containsKey(lchar)){
+                        tCount.put(lchar,tCount.get(lchar)+1);
+                        if(tCount.get(lchar)==1){
+                            counter++;
+                        }
                     }
+                    if(r-l+1 < minLength){
+                        maxLeft = l;
+                        minLength = r-l+1;
+                    }
+                    l++;
                 }
-                left ++ ;
             }
+            r++;
         }
+        System.out.println(maxLeft+"..."+minLength);
+        if(minLength>s.length()) return "";
+        return s.substring(maxLeft,maxLeft+minLength);
     }
-    if(minLen>s.length())  
-    {  
-        return "";  
-    }  
-    
-    return s.substring(minLeft,minLeft+minLen);
-}
 }
