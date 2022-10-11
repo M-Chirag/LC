@@ -7,11 +7,9 @@ class Solution:
         r = n
         while(l<=r):
             m = (r+l)>>1
-            if(isBadVersion(m) and not isBadVersion(m-1)):
-                return m
-            elif(isBadVersion(m)):
+            if(isBadVersion(m)):
                 r=m-1
             else:
                 l = m+1
-        return -1
+        return l
         
