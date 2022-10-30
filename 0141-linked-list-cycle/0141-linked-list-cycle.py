@@ -14,12 +14,11 @@ class Solution:
         else:
             return False
 
-        while(slow!=fast):
-            if(fast.next==None or fast.next.next==None):
-                return False
+        while(fast.next!=None and fast.next.next!=None):
             slow = slow.next
             fast = fast.next.next
-        else:
-            return True
+            if(fast == slow):
+                return True
+        
         return False
        
