@@ -2,24 +2,22 @@ class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         
         res = []
-        st = []
+        string = "" 
         op, cl = 0,0
         
-        def backtrack(op, cl):
+        def backtrack(op, cl, string):
             
             if(op==cl == n):
-                res.append("".join(st))
+                res.append(string)
                 return
                 
             if(op<n):
-                st.append('(')
-                backtrack(op+1,cl)
-                st.pop()
+                string1= string+'('
+                backtrack(op+1,cl, string1)
             if(cl<op):
-                st.append(')')
-                backtrack(op,cl+1)
-                st.pop()
-        backtrack(0,0)
+                string2= string+')'
+                backtrack(op,cl+1, string2)
+        backtrack(0,0,string)
         return res
             
             
